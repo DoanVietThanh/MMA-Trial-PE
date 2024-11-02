@@ -1,0 +1,3 @@
+expo router
+tabs
+nativewind
