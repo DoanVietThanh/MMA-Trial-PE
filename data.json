@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "playerName": "Diego Maradona",
+    "isCaptain": true,
+    "image": "https://academy.vjss.com.vn/files/assets/alltime1.jpg",
+    "position": "Forward",
+    "age": 35,
+    "team": "Argentina",
+    "passingAccuracy": 90,
+    "minutesPlayed": 1200
+  },
+  {
+    "id": 2,
+    "playerName": "Lionel Messi",
+    "isCaptain": false,
+    "image": "https://academy.vjss.com.vn/files/assets/alltime2.jpg",
+    "position": "Forward",
+    "age": 35,
+    "team": "Argentina",
+    "passingAccuracy": 90,
+    "minutesPlayed": 1200
+  },
+  {
+    "id": 3,
+    "playerName": "Pele",
+    "isCaptain": false,
+    "image": "https://academy.vjss.com.vn/files/assets/alltime3.jpg",
+    "position": "Forward",
+    "age": 35,
+    "team": "Brazil",
+    "passingAccuracy": 100,
+    "minutesPlayed": 1400
+  },
+  {
+    "id": 4,
+    "playerName": "Johan Cruyff",
+    "isCaptain": true,
+    "image": "https://academy.vjss.com.vn/files/assets/alltime4.jpg",
+    "position": "Forward",
+    "age": 35,
+    "team": "Argentina",
+    "passingAccuracy": 80,
+    "minutesPlayed": 1200
+  },
+  {
+    "id": 5,
+    "playerName": "Cristiano Ronaldo",
+    "isCaptain": false,
+    "image": "https://academy.vjss.com.vn/files/assets/alltime5.jpg",
+    "position": "Forward",
+    "age": 35,
+    "team": "Portugal",
+    "passingAccuracy": 90,
+    "minutesPlayed": 1200
+  },
+  {
+    "id": 6,
+    "playerName": "Neymar",
+    "isCaptain": false,
+    "image": "https://academy.vjss.com.vn/files/assets/alltime6.jpg",
+    "position": "Forward",
+    "age": 35,
+    "team": "Brazil",
+    "passingAccuracy": 90,
+    "minutesPlayed": 1200
+  }
+]
