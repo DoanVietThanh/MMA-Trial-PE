@@ -92,9 +92,7 @@ export default function CaptainScreen() {
             <TouchableOpacity
               onPress={() => setSelectedItems(players.map((player: Player) => player.id))}
               className="rounded-full bg-blue-500 px-4 py-2 shadow-md">
-              <Text className="font-semibold text-white">
-                Select All {selectedItems.length > 0 && `(${selectedItems.length})`}
-              </Text>
+              <Text className="font-semibold text-white">Select All</Text>
             </TouchableOpacity>
           )}
 

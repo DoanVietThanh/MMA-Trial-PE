@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getPlayer } from '~/api/player.api';
+import MoreAction from '~/components/ui/modal-action';
 import { useFavorites } from '~/context/favorite.context';
 import { Player } from '~/types/player.types';
 
@@ -88,6 +89,9 @@ export default function PlayerDetail() {
                 className="rounded-full border border-gray-300 bg-white p-2 shadow-md"
                 onPress={() => handleAddFavorite()}>
                 <Feather name="heart" size={24} color={isActive ? 'red' : 'gray'} />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <MoreAction />
               </TouchableOpacity>
             </View>
           ),
