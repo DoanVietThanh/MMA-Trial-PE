@@ -38,11 +38,23 @@ const CardItem = ({ player, onSelect, selected, isShownCheckbox = false }: CardI
     <View
       key={player.id}
       className="mb-4 flex-row rounded-lg border border-gray-200 bg-white p-4 shadow-lg">
+      {isShownCheckbox && (
+        <View className="flex w-1/12 items-center justify-center">
+          <Pressable onPress={() => onSelect && onSelect(player.id)}>
+            <Ionicons
+              name={selected ? 'checkbox' : 'square-outline'}
+              size={24}
+              color={selected ? 'green' : 'gray'}
+            />
+          </Pressable>
+        </View>
+      )}
+
       <View className="relative w-1/3">
         <Pressable onPress={() => router.push(`/player/${player.id}` as Href)}>
           <Image
             source={{ uri: player.image }}
-            className="mb-2 h-32 w-full rounded-lg"
+            className="aspect-square w-full rounded-lg"
             resizeMode="cover"
           />
         </Pressable>
@@ -53,18 +65,14 @@ const CardItem = ({ player, onSelect, selected, isShownCheckbox = false }: CardI
           color={isActive ? 'red' : 'gray'}
           className="absolute right-2 top-2"
         />
+
+        {player.isCaptain && (
+          <View className="absolute left-2 top-2 rounded-full bg-yellow-500 px-2 py-1">
+            <Text className="text-xs text-white">Captain</Text>
+          </View>
+        )}
       </View>
       <View className="flex-1 pl-4">
-        {isShownCheckbox && (
-          <Pressable onPress={() => onSelect && onSelect(player.id)}>
-            <Ionicons
-              name={selected ? 'checkbox' : 'square-outline'}
-              size={24}
-              color={selected ? 'green' : 'gray'}
-            />
-          </Pressable>
-        )}
-
         <Text
           numberOfLines={2}
           className="mb-1 text-lg font-extrabold text-blue-900"
@@ -73,11 +81,6 @@ const CardItem = ({ player, onSelect, selected, isShownCheckbox = false }: CardI
         </Text>
         <Text>{player.team}</Text>
         <Text className="text-sm text-gray-600">Age: {2024 - player.YoB}</Text>
-        {player.isCaptain && (
-          <Text className="self-start rounded-lg bg-green-500 px-2 py-1 text-sm italic text-white">
-            Captain
-          </Text>
-        )}
 
         <Text className="text-sm text-gray-600">Position: {player.position}</Text>
         <Text className="text-sm text-gray-600">Minutes Played: {player.minutesPlayed}</Text>

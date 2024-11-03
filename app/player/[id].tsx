@@ -1,7 +1,16 @@
 import { Feather } from '@expo/vector-icons';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Alert, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { getPlayer } from '~/api/player.api';
 import { useFavorites } from '~/context/favorite.context';
 import { Player } from '~/types/player.types';
@@ -11,6 +20,7 @@ export default function PlayerDetail() {
   const { id } = useLocalSearchParams();
   const { isFavorite, addFavorite } = useFavorites();
   const [player, setPlayer] = useState<Player>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -19,12 +29,24 @@ export default function PlayerDetail() {
         setPlayer(resPlayer);
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
       }
     }
     fetchData();
   }, [id]);
 
   const isActive = player ? isFavorite(player.id) : false;
+
+  if (loading) {
+    return (
+      <SafeAreaView>
+        <View className="flex h-full items-center justify-center">
+          <ActivityIndicator size="large" color="#115e59" />
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   if (!player) {
     return null;
@@ -48,7 +70,7 @@ export default function PlayerDetail() {
   };
 
   return (
-    <>
+    <SafeAreaView>
       <Stack.Screen
         options={{
           headerTransparent: true,
@@ -96,6 +118,6 @@ export default function PlayerDetail() {
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 }

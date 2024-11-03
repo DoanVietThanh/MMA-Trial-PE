@@ -1,5 +1,6 @@
 import { Feather } from '@expo/vector-icons';
-import { useEffect, useState } from 'react';
+import { useFocusEffect } from 'expo-router';
+import { useCallback, useEffect, useState } from 'react';
 import { Alert, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { getAllCaptains } from '~/api/player.api';
 import CardItem from '~/components/ui/card-item';
@@ -13,6 +14,12 @@ export default function CaptainScreen() {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [numLikedCaptains, setNumLikedCaptains] = useState(0);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc'); // State to track sort order
+
+  useFocusEffect(
+    useCallback(() => {
+      setSelectedItems([]);
+    }, [])
+  );
 
   useEffect(() => {
     async function fetchData() {
@@ -70,8 +77,8 @@ export default function CaptainScreen() {
   };
 
   return (
-    <>
-      <View className="flex justify-between p-4">
+    <View className="px-4">
+      <View className="flex justify-between py-4">
         <TouchableOpacity
           onPress={toggleSortOrder}
           className="w-fit rounded-full bg-gray-500 px-4 py-2 shadow-md">
@@ -80,12 +87,14 @@ export default function CaptainScreen() {
           </Text>
         </TouchableOpacity>
 
-        <View className="flex-row justify-between p-4">
+        <View className="flex-row justify-between py-4">
           {numLikedCaptains > 1 && (
             <TouchableOpacity
               onPress={() => setSelectedItems(players.map((player: Player) => player.id))}
               className="rounded-full bg-blue-500 px-4 py-2 shadow-md">
-              <Text className="font-semibold text-white">Select All</Text>
+              <Text className="font-semibold text-white">
+                Select All {selectedItems.length > 0 && `(${selectedItems.length})`}
+              </Text>
             </TouchableOpacity>
           )}
 
@@ -120,6 +129,6 @@ export default function CaptainScreen() {
           );
         }}
       />
-    </>
+    </View>
   );
 }

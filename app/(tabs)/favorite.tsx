@@ -1,14 +1,21 @@
 import { Feather } from '@expo/vector-icons';
-import { Stack } from 'expo-router';
-import { useState } from 'react';
+import { Stack, useFocusEffect } from 'expo-router';
+import { useCallback, useState } from 'react';
 import { Alert, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import CardItem from '~/components/ui/card-item';
 import { useFavorites } from '~/context/favorite.context';
 import { Player } from '~/types/player.types';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function Home() {
   const { favorites, removeFavoriteItems } = useFavorites();
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+
+  useFocusEffect(
+    useCallback(() => {
+      setSelectedItems([]);
+    }, [])
+  );
 
   const handleSelect = (id: string) => {
     setSelectedItems((prev) =>
@@ -39,15 +46,24 @@ export default function Home() {
   };
 
   return (
-    <>
-      <Stack.Screen options={{ title: 'Favoritess' }} />
-      <View className="flex-row justify-between p-4">
-        {favorites.length == 0 && <Text className="w-full text-red-700">Not found</Text>}
+    <View className="px-4">
+      <Stack.Screen options={{ title: 'Favorites' }} />
+      <View className="flex-row justify-between py-4">
+        {favorites.length == 0 && (
+          <View className="flex h-full w-full items-center justify-center">
+            <FontAwesome name="heart-o" size={60} color="#d1d5db" />
+            <Text className="pt-4 text-center text-2xl font-semibold text-gray-300">
+              No favorites yet
+            </Text>
+          </View>
+        )}
         {favorites.length > 1 && (
           <TouchableOpacity
             onPress={() => setSelectedItems(favorites.map((fav) => fav.id))}
             className="rounded-full bg-blue-500 px-4 py-2 shadow-md">
-            <Text className="font-semibold text-white">Select All</Text>
+            <Text className="font-semibold text-white">
+              Select All {selectedItems.length > 0 && `(${selectedItems.length})`}
+            </Text>
           </TouchableOpacity>
         )}
 
@@ -69,7 +85,7 @@ export default function Home() {
       <FlatList
         data={favorites}
         keyExtractor={(tool) => tool.id}
-        contentContainerStyle={{ paddingBottom: 100 }}
+        contentContainerStyle={{ paddingBottom: 60 }}
         renderItem={({ item }: { item: Player }) => {
           return (
             <CardItem
@@ -81,6 +97,6 @@ export default function Home() {
           );
         }}
       />
-    </>
+    </View>
   );
 }

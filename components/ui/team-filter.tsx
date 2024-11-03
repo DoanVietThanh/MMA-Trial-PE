@@ -32,19 +32,19 @@ const TeamFilter = () => {
   };
 
   return (
-    <View>
+    <View className="mt-4">
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 10 }}>
+        contentContainerStyle={{ paddingHorizontal: 0 }}>
         {allTeams.map((team: string) => (
           <TouchableOpacity
             key={team}
             onPress={() => handleSelectTeam(team)}
-            className={`mr-4 mt-2 rounded-lg border px-4 py-2 ${
-              isActive(team) ? 'border-blue-500 bg-blue-100' : 'border-gray-300'
+            className={`mr-3 rounded-lg border px-4 py-2 ${
+              isActive(team) ? 'border-teal-800 bg-teal-100' : 'border-gray-300'
             }`}>
-            <Text className={`${isActive(team) ? 'text-blue-500' : 'text-black'}`}>{team}</Text>
+            <Text className={`${isActive(team) ? 'text-teal-800' : 'text-black'}`}>{team}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>

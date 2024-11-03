@@ -1,4 +1,4 @@
-import { router, Tabs } from 'expo-router';
+import { Tabs } from 'expo-router';
 import { View, Text } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useFavorites } from '~/context/favorite.context';
@@ -8,7 +8,7 @@ export default function TabLayout() {
   const { favorites } = useFavorites();
 
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'black' }}>
+    <Tabs screenOptions={{ tabBarActiveTintColor: '#0f9188', tabBarInactiveTintColor: '#10423e' }}>
       <Tabs.Screen
         name="index"
         options={{
@@ -24,7 +24,7 @@ export default function TabLayout() {
             <View style={{ position: 'relative' }}>
               <Feather name="heart" size={24} color={color} />
               {favorites.length > 0 && (
-                <View className="absolute right-0 top-0 h-4 w-4 items-center justify-center rounded-full bg-red-500">
+                <View className="absolute -right-2 -top-1 h-4 w-4 items-center justify-center rounded-full bg-red-500">
                   <Text className="text-xs text-white">{favorites.length}</Text>
                 </View>
               )}
@@ -32,9 +32,9 @@ export default function TabLayout() {
           ),
           headerShown: true,
           headerTitle: 'Favorites',
-          headerLeft: () => (
-            <Feather name="arrow-left" size={24} color="black" onPress={() => router.back()} />
-          ),
+          // headerLeft: () => (
+          //   <Feather name="arrow-left" size={24} color="black" onPress={() => router.back()} />
+          // ),
         }}
       />
       <Tabs.Screen

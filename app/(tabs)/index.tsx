@@ -1,6 +1,7 @@
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { FlatList, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { getAllPlayers } from '~/api/player.api';
 import CardItem from '~/components/ui/card-item';
 
@@ -27,17 +28,29 @@ export default function Home() {
   console.log({ players });
 
   return (
-    <>
+    <SafeAreaView>
       <Stack.Screen options={{ title: 'Home', headerShown: false }} />
-      <View className="flex-1 pt-8">
+      <View className="px-4">
         <UserControl />
+
         <TeamFilter />
-        <FlatList
-          data={players}
-          keyExtractor={(item) => item.id as string}
-          renderItem={({ item }) => <CardItem player={item} />}
-        />
+
+        <View className="mt-6 h-[76vh]">
+          <FlatList
+            data={players}
+            keyExtractor={(item) => item.id as string}
+            renderItem={({ item }) => <CardItem player={item} />}
+            ListFooterComponent={<View className="h-2" />}
+            ListHeaderComponent={
+              <View>
+                <Text className="text-lg font-semibold text-gray-500">
+                  {players.length} players found
+                </Text>
+              </View>
+            }
+          />
+        </View>
       </View>
-    </>
+    </SafeAreaView>
   );
 }
