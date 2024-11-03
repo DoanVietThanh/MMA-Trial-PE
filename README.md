@@ -1,10 +1,5 @@
+### Step by Step to install
+
 npx create-expo-app@latest
 npm i @react-native-async-storage/async-storage
 npm install nativewind tailwindcss react-native-reanimated react-native-safe-area-context
-
-npx create-expo-stack@latest
-expo router
-tabs
-nativewind
-
-npm i @react-native-async-storage/async-storage
