@@ -9,7 +9,7 @@ const UserControl = () => {
         <FontAwesome size={40} name="user-secret" color={'gray'} />
         <View className="flex">
           <Text className="text-sm">Hello !</Text>
-          <Text className="font-semibold">Thanh Doan</Text>
+          <Text className="font-semibold">Admin</Text>
         </View>
       </View>
       <View className="rounded-full bg-gray-100 p-2">

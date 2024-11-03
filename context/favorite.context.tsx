@@ -24,47 +24,42 @@ const showToastDeleteAll = () => {
 
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   const [favorites, setFavorites] = useState<Player[]>([]);
-  const allPlayers = getAllPlayers('');
+  const [allPlayers, setAllPlayers] = useState<Player[]>([]);
 
   useEffect(() => {
-    loadFavorites();
-  }, []);
-
-  const loadFavorites = async () => {
-    try {
+    async function fetchData() {
+      const allPlayers = await getAllPlayers('');
+      setAllPlayers(allPlayers);
       const storedFavorites = await AsyncStorage.getItem('favorites');
       if (storedFavorites) {
         setFavorites(JSON.parse(storedFavorites));
       }
-    } catch (error) {
-      console.error('Failed to load favorites', error);
     }
-  };
+    fetchData();
+  }, []);
 
   const isFavorite = (id: string) => {
-    return favorites.some((item) => (item.id as unknown as string) === id);
+    return favorites.some((item: Player) => item.id === id);
   };
 
   const addFavorite = async (playerId: string) => {
     let updatedFavorites = [];
-    const existingToolArt = allToolArt?.find((item) => item.id === playerId);
-    if (!existingToolArt) {
+    const existingPlayer = allPlayers?.find((item) => item.id === playerId);
+    if (!existingPlayer) {
       return;
     }
-    const isFavorite = favorites.some((item) => item.id === existingToolArt.id);
+    const isFavorite = favorites.some((item) => item.id === existingPlayer.id);
     if (isFavorite) {
       updatedFavorites = favorites.filter((item) => item.id !== playerId);
     } else {
-      updatedFavorites = [...favorites, existingToolArt];
+      updatedFavorites = [...favorites, existingPlayer];
     }
     setFavorites(updatedFavorites);
     await AsyncStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };
 
   const removeFavoriteItems = async (playerId: string[]) => {
-    const updatedFavorites = favorites.filter(
-      (item) => !playerId.includes(item.id as unknown as string)
-    );
+    const updatedFavorites = favorites.filter((item: Player) => !playerId.includes(item.id));
     setFavorites(updatedFavorites);
     await AsyncStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };

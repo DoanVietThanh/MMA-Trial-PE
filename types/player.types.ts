@@ -1,11 +1,11 @@
 export type Player = {
-  id: number;
-  age: number;
-  isCaptain: boolean;
+  id: string;
   playerName: string;
-  image: string;
   position: string;
+  image: string;
   team: string;
-  passingAccuracy: number;
+  YoB: number;
   minutesPlayed: number;
+  passingAccuracy: number;
+  isCaptain: boolean;
 };

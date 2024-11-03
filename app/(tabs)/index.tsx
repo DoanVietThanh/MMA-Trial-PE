@@ -34,7 +34,7 @@ export default function Home() {
         <TeamFilter />
         <FlatList
           data={players}
-          keyExtractor={(item) => item.id as unknown as string}
+          keyExtractor={(item) => item.id as string}
           renderItem={({ item }) => <CardItem player={item} />}
         />
       </View>
